@@ -8,6 +8,10 @@ public class Tipo_cita {
     private String idTipo;
     private String duracion;
 
+    public Tipo_cita(){
+        
+    }
+    
     public String getIdTipo() {
         return idTipo;
     }

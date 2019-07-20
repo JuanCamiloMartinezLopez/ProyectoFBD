@@ -9,6 +9,10 @@ public class Consultorio {
     private String tipo;
     private String descripcionEquipo;
     private Sede sede;
+    
+    public Consultorio(){
+        
+    }
 
     public String getIdConsultorio() {
         return idConsultorio;

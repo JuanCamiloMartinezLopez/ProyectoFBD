@@ -14,6 +14,10 @@ public class Cita {
     private Paciente paciente;
     private Multa multa;
     
+    public Cita(){
+        
+    }
+    
     public String getFecha() {
         return fecha;
     }

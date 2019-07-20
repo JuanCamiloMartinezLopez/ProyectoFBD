@@ -8,6 +8,10 @@ public class Multa {
     private String estado;
     private String vMulta;
     private String idMulta;
+    
+    public Multa(){
+        
+    }
 
     public String getEstado() {
         return estado;

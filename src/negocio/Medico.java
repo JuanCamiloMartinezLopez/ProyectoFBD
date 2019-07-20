@@ -9,6 +9,10 @@ public class Medico extends Usuario {
     private Especialidad especialidad;
     private Consultorio consultorio;
     
+    public Medico(){
+        
+    }
+    
     public Boolean getTiene_agenda() {
         return tiene_agenda;
     }

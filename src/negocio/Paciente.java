@@ -10,6 +10,10 @@ public class Paciente extends Usuario {
     private String estado;
     private String estado_multa;
     private Categoria categoria;
+    
+    public Paciente(){
+        
+    }
 
     public String getParentesco() {
         return parentesco;

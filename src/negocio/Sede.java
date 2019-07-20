@@ -8,6 +8,10 @@ public class Sede {
     private String idSede;
     private String numero;
     private String direccion;
+    
+    public Sede(){
+        
+    }
 
     public String getIdSede() {
         return idSede;

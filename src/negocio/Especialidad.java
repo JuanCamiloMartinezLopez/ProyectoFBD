@@ -7,6 +7,10 @@ package negocio;
 public class Especialidad {
     private String codigo;
     private String nombre;
+    
+    public Especialidad(){
+        
+    }
 
     public String getCodigo() {
         return codigo;

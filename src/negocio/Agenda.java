@@ -13,6 +13,12 @@ public class Agenda {
     private Medico medico;
     private Tipo_cita tCita;
 
+    public Agenda(){
+        
+    }
+    
+    
+
     public String getIdAgenda() {
         return idAgenda;
     }

@@ -9,6 +9,11 @@ public class Categoria {
     private String idCategoria;
     private String vCopago;
     private String vMulta;
+
+    public Categoria() {
+    }
+    
+    
     
     public String getIdCategoria() {
         return idCategoria;

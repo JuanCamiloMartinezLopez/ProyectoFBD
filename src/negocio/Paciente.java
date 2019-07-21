@@ -9,7 +9,7 @@ public class Paciente extends Usuario {
     private String idAfiliado;
     private String estado;
     private String estado_multa;
-    private Categoria categoria;
+    private String categoria;
     
     public Paciente(){
         
@@ -47,11 +47,11 @@ public class Paciente extends Usuario {
         this.estado_multa = estado_multa;
     }
 
-    public Categoria getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
     

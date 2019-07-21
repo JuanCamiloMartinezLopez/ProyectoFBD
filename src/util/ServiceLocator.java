@@ -48,7 +48,7 @@ public class ServiceLocator {
                 try {
                     // Se registra el Driver y se crea la conexion
                     //String url = "jdbc:oracle:thin:@localhost:1521:xe";
-                    String url = "jdbc:postgresql://localhost:5432/catastro";
+                    String url = "jdbc:postgresql://localhost:5432/CitasMedicas";
                     String usuario = "postgres";
                     String password = "jcpg980109ML"; //Debe reemplazarse por el password en su propia instalación
                     Class.forName("org.postgresql.Driver").newInstance();

@@ -11,7 +11,7 @@ public class Usuario {
     private String email;
     private String telefono_fijo;
     private String telefono_cel;
-    private char sexo;
+    private String sexo;
     private String nombre;
     private String fecha;
 
@@ -63,11 +63,11 @@ public class Usuario {
         this.telefono_cel = telefono_cel;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 

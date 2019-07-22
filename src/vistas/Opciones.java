@@ -7,30 +7,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import negocio.AsignacionCita;
 
 public class Opciones extends JFrame implements ActionListener{
 
-    String nombre;
-    String apellido;
+    int multa=0;
     
-    JLabel jlNombre = new JLabel("Nombre:");
-    
-    
+    JButton info = new JButton("Ver informacion del usuario");
     JButton consultar = new JButton("Consultar citas agendadas");
     JButton agendar = new JButton("Agendar una cita");
     JButton cancelar = new JButton("Cancelar una cita");
     JButton cerrar = new JButton("Cerrar sesión");
     
-    public AsignacionCita AC;
-    
     public Opciones(){
-        AC=AsignacionCita.getInstance();
-        
-        jlNombre = new JLabel("Nombre: "+AC.getCDAO().getUsuario().getNombre());
-        
-        
+    
         setResizable(false);
         this.getContentPane().setBackground(Color.WHITE);
         setLayout(null);
@@ -38,29 +27,30 @@ public class Opciones extends JFrame implements ActionListener{
         
         c.setBackground(Color.gray);
         
-        c.add(jlNombre);
-        jlNombre.setBounds(30, 10, 200, 20);
+        c.add(info);
+        info.setBounds(30, 20, 230, 20);
+        info.addActionListener(this);
         
         c.add(consultar);
-        consultar.setBounds(30, 80, 230, 20);
+        consultar.setBounds(30, 60, 230, 20);
         consultar.addActionListener(this);
         
         c.add(agendar);
-        agendar.setBounds(30, 120, 230, 20);
+        agendar.setBounds(30, 100, 230, 20);
         agendar.addActionListener(this);
         
         c.add(cancelar);
-        cancelar.setBounds(30, 160, 230, 20);
+        cancelar.setBounds(30, 140, 230, 20);
         cancelar.addActionListener(this);
         
         c.add(cerrar);
-        cerrar.setBounds(170,0,130,20);
+        cerrar.setBounds(80,180,130,20);
         cerrar.addActionListener(this);
     }
     
     public void mostrar() {
         
-        setSize(300, 230);
+        setSize(300, 250);
         setVisible(true);
 
     }    
@@ -74,11 +64,16 @@ public class Opciones extends JFrame implements ActionListener{
             ConfirmarCita cc = new ConfirmarCita();
             cc.mostrar();
             
-        } else if(e.getSource()==agendar){
+        } else if(e.getSource()==agendar && multa==0){
             
             this.dispose();
             EleccionCita ec = new EleccionCita();
             ec.mostrar();
+            
+        } else if(e.getSource()==agendar && multa!=0){
+            
+            Avisos aviso = new Avisos("denegado");
+            aviso.mostrar();
             
         } else if(e.getSource()==cancelar){
             
@@ -89,9 +84,14 @@ public class Opciones extends JFrame implements ActionListener{
         } else if(e.getSource()==cerrar){
         
             this.dispose();
-            Ingreso i =new Ingreso();
+            Ingreso i = new Ingreso();
             i.mostrar();
             
+        } else if(e.getSource()==info){
+            
+            this.dispose();
+            Datos o = new Datos(); 
+            o.mostrar();
         }
         
         

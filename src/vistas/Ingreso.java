@@ -92,29 +92,36 @@ public class Ingreso extends JFrame implements ActionListener {
             try {
 
                 if (!inIdentificacion.getText().isEmpty() && !inPassword.getText().isEmpty()) {
-                    
+
                     if (AC.validarUsuario(inIdentificacion.getText(), inPassword.getText())) {
-                        this.dispose();
-                        Opciones O = new Opciones();
-                        O.mostrar();
+
+                        if (AC.validarPaciente()) {
+                            this.dispose();
+                            Opciones O = new Opciones();
+                            O.mostrar();
+                        } else {
+                            aviso.setVisible(true);
+                            aviso.setText("Paciente no existe");
+                        }
+
                     } else {
                         aviso.setVisible(true);
                         aviso.setText("Usuario no existe");
                     }
-                }else{
+                } else {
                     if (inIdentificacion.getText().isEmpty() && inPassword.getText().isEmpty()) {
                         aviso.setVisible(true);
                         aviso.setText("Datos incorrectos");
-                    }else{
-                        if (inIdentificacion.getText().isEmpty()){
+                    } else {
+                        if (inIdentificacion.getText().isEmpty()) {
                             aviso.setVisible(true);
                             aviso.setText("id incorrecto");
                         }
-                        if (inPassword.getText().isEmpty()){
+                        if (inPassword.getText().isEmpty()) {
                             aviso.setVisible(true);
                             aviso.setText("Password incorrecto");
                         }
-                        
+
                     }
                 }
 

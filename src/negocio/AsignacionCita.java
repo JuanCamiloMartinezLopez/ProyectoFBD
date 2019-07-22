@@ -33,6 +33,11 @@ public class AsignacionCita {
         return CDAO.isExiste();
     }
     
+    public boolean validarPaciente() throws CaException{
+        CDAO.validarPaciente();
+        return CDAO.isExistePaciente();
+    }
+    
     public void registrarUsuario() throws CaException{
         CDAO.registrarUsuario();
     }

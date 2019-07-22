@@ -26,7 +26,8 @@ import util.ServiceLocator;
  */
 public class CitasDAO {
 
-    private boolean existe = false;
+    private boolean existeUsuario = false;
+    private boolean existePaciente = false;
     private Agenda agenda;
     private Categoria categoria;
     private Cita cita;
@@ -57,25 +58,28 @@ public class CitasDAO {
     public void ValidarUsuario(String id, String contraseña) throws CaException {
 
         try {
-            String strSQL = "SELECT * FROM usuario WHERE k_identificacion=" + id + " AND contrasea='" + contraseña + "'";
+            String strSQL = "SELECT * FROM usuario WHERE k_identificacion=" + id + " AND contrasea='" + contraseña + "';";
             Connection conexion = ServiceLocator.getInstance().tomarConexion();
             PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
             ResultSet rs = prepStmt.executeQuery();
-            while(rs.next()) {
-                    usuario.setIdentificacion(rs.getString(1));
-                    usuario.setTipo_id(rs.getString(2));
-                    usuario.setContraseña(rs.getString(3));
-                    usuario.setEmail(rs.getString(4));
-                    usuario.setTelefono_fijo(rs.getString(5));
-                    usuario.setTelefono_cel(rs.getString(6));
-                    usuario.setSexo(rs.getString(7));
-                    usuario.setNombre(rs.getString(8));
-                    usuario.setFecha(rs.getString(9));
-                    existe = true;
+            while (rs.next()) {
+                usuario.setIdentificacion(rs.getString(1));
+                usuario.setTipo_id(rs.getString(2));
+                usuario.setContraseña(rs.getString(3));
+                usuario.setEmail(rs.getString(4));
+                usuario.setTelefono_fijo(rs.getString(5));
+                usuario.setTelefono_cel(rs.getString(6));
+                usuario.setSexo(rs.getString(7));
+                usuario.setNombre(rs.getString(8));
+                usuario.setFecha(rs.getString(9));
+
+                existeUsuario = true;
             }
-            
+
         } catch (SQLException e) {
             throw new CaException("CitasDAO", "No pudo logearse " + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
         }
     }
 
@@ -96,7 +100,7 @@ public class CitasDAO {
             prepStmt.setString(8, usuario.getNombre());
             prepStmt.setDate(9, Date.valueOf(usuario.getFecha()));
             prepStmt.executeUpdate();
-            prepStmt.close();
+            //prepStmt.close();
             ServiceLocator.getInstance().commit();
         } catch (SQLException e) {
             throw new CaException("CitasDAO", "No pudo crear el Usuario" + e.getMessage());
@@ -112,31 +116,123 @@ public class CitasDAO {
                     + "    VALUES (?, ?, ?, ?, ?, ?);";
             Connection conexion = ServiceLocator.getInstance().tomarConexion();
             PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
-            prepStmt.setInt(1, Integer.parseInt(usuario.getIdentificacion()));
-            prepStmt.setString(2, usuario.getTipo_id());
-            prepStmt.setString(3, usuario.getContraseña());
-            prepStmt.setString(4, usuario.getEmail());
-            prepStmt.setString(5, usuario.getTelefono_fijo());
-            prepStmt.setString(6, usuario.getTelefono_cel());
-            prepStmt.setString(7, usuario.getSexo());
-            prepStmt.setString(8, usuario.getNombre());
-            prepStmt.setDate(9, Date.valueOf(usuario.getFecha()));
+            prepStmt.setInt(1, Integer.parseInt(paciente.getIdentificacion()));
+            prepStmt.setString(2, paciente.getParentesco());
+            prepStmt.setInt(3, Integer.parseInt(paciente.getIdAfiliado()));
+            prepStmt.setString(4, paciente.getEstado());
+            prepStmt.setString(5, paciente.getEstado_multa());
+            prepStmt.setInt(6, Integer.parseInt(paciente.getCategoria()));
             prepStmt.executeUpdate();
-            prepStmt.close();
+            //prepStmt.close();
             ServiceLocator.getInstance().commit();
         } catch (SQLException e) {
-            throw new CaException("CitasDAO", "No pudo crear el Usuario" + e.getMessage());
+            throw new CaException("CitasDAO", "No pudo crear el paciente" + e.getMessage());
         } finally {
             ServiceLocator.getInstance().liberarConexion();
         }
     }
-    
-    public void traerCategoria(){
-        
+
+    public void validarPaciente() throws CaException {
+        try {
+            String strSQL = "SELECT * FROM afiliado WHERE k_identificacion=" + usuario.getIdentificacion() + ";";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()) {
+                paciente.setIdentificacion(rs.getString(1));
+                paciente.setParentesco(rs.getString(2));
+                paciente.setIdAfiliado(rs.getString(3));
+                paciente.setEstado(rs.getString(4));
+                paciente.setEstado_multa(rs.getString(5));
+                paciente.setCategoria(rs.getString(6));
+                existePaciente = true;
+            }
+
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No pudo logearse " + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
+        }
+    }
+
+    public void traerCategoria() throws CaException {
+        try {
+            String strSQL = "SELECT * FROM categoria WHERE k_id_categoria=" + paciente.getCategoria() + ";";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()) {
+                categoria.setIdCategoria(rs.getString(1));
+                categoria.setvCopago(rs.getString(2));
+                categoria.setvMulta(rs.getString(3));
+
+            }
+
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No pudo logearse " + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
+        }
+    }
+
+    public void modificarEstadoPaciente() throws CaException {
+        try {
+            String estado;
+            if (paciente.getEstado() == "Activo") {
+                estado = "Inactivo";
+            } else {
+                estado = "Activo";
+            }
+            String strSQL = "UPDATE public.afiliado\n"
+                    + "   SET i_estado= '" + estado + "'\n"
+                    + " WHERE k_identificacion =" + paciente.getIdentificacion() + ";";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            prepStmt.executeUpdate();
+            //prepStmt.close();
+            ServiceLocator.getInstance().commit();
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No pudo modificar estado" + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
+        }
+    }
+
+    public void consultarAgenda(String especialidad,String idSede,String yyyy,String mm, String dd,String tCita) throws CaException {
+        try {
+            String strSQL = "SELECT * FROM agenda a, sede s,especialidad e, medico m, consultorio c"
+                    + "WHERE m.k_identificacion=a.k_identificacion"
+                    + "AND e.k_codigo=m.k_codigo_especiali"
+                    + "AND s.k_id_sede=c.k_id_sede"
+                    + "AND e.k_codigo="+especialidad+" "
+                    + "AND s.k_id_sede='"+idSede+"'"
+                    + "AND a.fecha ='"+yyyy+"-"+mm+"-"+dd+"';";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()) {
+                paciente.setIdentificacion(rs.getString(1));
+                paciente.setParentesco(rs.getString(2));
+                paciente.setIdAfiliado(rs.getString(3));
+                paciente.setEstado(rs.getString(4));
+                paciente.setEstado_multa(rs.getString(5));
+                paciente.setCategoria(rs.getString(6));
+                existePaciente = true;
+            }
+
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No pudo logearse " + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
+        }
     }
 
     public boolean isExiste() {
-        return existe;
+        return existeUsuario;
+    }
+
+    public boolean isExistePaciente() {
+        return existePaciente;
     }
 
     public Paciente getPaciente() {

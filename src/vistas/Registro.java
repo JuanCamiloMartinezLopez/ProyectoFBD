@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import negocio.AsignacionCita;
+import negocio.Paciente;
 import negocio.Usuario;
 import util.CaException;
 
@@ -162,6 +163,7 @@ public class Registro extends JFrame implements ActionListener{
             try {
                 this.dispose();
                 Usuario user = AC.getCDAO().getUsuario();
+                Paciente afiliado =AC.getCDAO().getPaciente();
                 user.setIdentificacion(tId.getText());
                 if(documentos.getSelectedItem().toString()=="Cedula De ciudadania"){
                     user.setTipo_id("CC");

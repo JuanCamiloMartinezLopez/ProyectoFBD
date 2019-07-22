@@ -1,18 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vistas;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -20,22 +18,12 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
  */
 public class ConfirmarCita extends JFrame implements ActionListener {
 
-    JLabel txtDia = new JLabel("La cita esta asgindad para el día:");
-    JLabel dia = new JLabel("dia tales ");
-
-    JLabel txMedico = new JLabel("Con el médico:");
-    JLabel medico = new JLabel("ESTO LO HIZO ZABALA");
-
-    JLabel txtSede = new JLabel("En la sede");
-    JLabel sede = new JLabel("sede tales");
-
-    JLabel txtConsultiro = new JLabel("En el consultorio:");
-    JLabel consultiro = new JLabel("el consultiro tales");
-
-    JButton confirmar = new JButton("confirmar");
+    JTable tabla;
+    JButton regresar = new JButton("Regresar");
+    JPanel jp = new JPanel();
 
     public ConfirmarCita() {
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
         setResizable(false);
         this.getContentPane().setBackground(Color.WHITE);
         setLayout(null);
@@ -43,38 +31,33 @@ public class ConfirmarCita extends JFrame implements ActionListener {
         
         c.setBackground(Color.gray);
         
-        c.add(txtDia);
-        txtDia.setBounds(30, 30, 100, 20);
+        jp.setPreferredSize(new Dimension(700, 700));
+        String[] columnNames = {"Id cita","Médico","Fecha",
+            "Hora","Tipo consulta","Sede",
+            "Consultorio"};
+        Object[][] data = {
+            {"1","Kathy", "24/07/2019" ,"8 am",
+                "Primera Vez", "Suba" , "204"},
+            {"5","Joe", "31/08/2019","11 am",
+                "General", "Suba" , "311"},
+            {"3","Sue", "12/01/2020", "10 am",
+                "Especialista", "Bosa", "209"}
+        };
+
+        tabla = new JTable(data, columnNames);
         
-        c.add(dia);
-        dia.setBounds(300, 30, 100, 20);
+        JScrollPane jScrollPane = new JScrollPane(tabla);
+        jScrollPane.setBounds(0, 0, 600, 200);
+        c.add(jScrollPane);
         
-        c.add(txMedico);
-        txMedico.setBounds(30, 60, 100, 20);
-        
-        c.add(medico);
-        medico.setBounds(300, 60, 300, 20);
-        
-        c.add(txtSede);
-        txtSede.setBounds(30, 90, 100, 20);
-        
-        c.add(sede);
-        sede.setBounds(300, 90, 100, 20);
-        
-        c.add(txtConsultiro);
-        txtConsultiro.setBounds(30, 120, 100, 20);
-        
-        c.add(consultiro);
-        consultiro.setBounds(300, 120, 100, 20);
-        
-        c.add(confirmar);
-        confirmar.setBounds(450, 450, 100, 20);
-        confirmar.addActionListener(this);
+        c.add(regresar);
+        regresar.setBounds(170, 220, 250, 30);
+        regresar.addActionListener(this);
         
     }
 
     public void mostrar() {
-        setSize(600, 700);
+        setSize(600, 300);
         setVisible(true);
 
     }
@@ -82,7 +65,7 @@ public class ConfirmarCita extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
        
-        if(e.getSource()==confirmar){
+        if(e.getSource()==regresar){
             
             this.dispose();
             Opciones O = new Opciones();

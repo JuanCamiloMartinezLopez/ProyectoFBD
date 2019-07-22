@@ -5,15 +5,15 @@ package negocio;
  * @author CAMILO
  */
 public class Usuario {
-    private String identificacion;
-    private String tipo_id;
-    private String contraseña;
-    private String email;
-    private String telefono_fijo;
-    private String telefono_cel;
-    private String sexo;
-    private String nombre;
-    private String fecha;
+    public String identificacion;
+    public String tipo_id;
+    public String contraseña;
+    public String email;
+    public String telefono_fijo;
+    public String telefono_cel;
+    public String sexo;
+    public String nombre;
+    public String fecha;
 
     public String getIdentificacion() {
         return identificacion;

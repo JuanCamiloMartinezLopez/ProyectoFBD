@@ -1,6 +1,7 @@
 package datos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,12 +26,15 @@ import util.ServiceLocator;
  */
 public class CitasDAO {
 
+    private boolean existe = false;
     private Agenda agenda;
     private Categoria categoria;
     private Cita cita;
     private Consultorio consultorio;
     private Especialidad especialidad;
-    private Paciente usuario = new Paciente();
+    private Paciente paciente;
+    private Usuario usuario;
+    private Medico medico;
     private Multa multa;
     private Sede sede;
     private Tipo_cita tCita;
@@ -44,48 +48,110 @@ public class CitasDAO {
         this.multa = new Multa();
         this.sede = new Sede();
         this.tCita = new Tipo_cita();
-        this.usuario = new Paciente();
+        this.paciente = new Paciente();
+        this.usuario = new Usuario();
+        this.medico = new Medico();
+
     }
 
-    public boolean ValidarAfiliado(String id, String contraseña) throws CaException {
-        boolean existe = false;
-        try {
+    public void ValidarUsuario(String id, String contraseña) throws CaException {
 
-            String strSQL = "SELECT * FROM afiliado a, usuario u WHERE a.k_identificacion=u.k_identificacion AND k_identificacion= ? AND contrasea= ?";
+        try {
+            String strSQL = "SELECT * FROM usuario WHERE k_identificacion=" + id + " AND contrasea='" + contraseña + "'";
             Connection conexion = ServiceLocator.getInstance().tomarConexion();
             PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
-            prepStmt.setInt(1, Integer.valueOf(id));
-            prepStmt.setString(9, contraseña);
             ResultSet rs = prepStmt.executeQuery();
-            while (rs.next()) {
-                usuario.setIdentificacion(rs.getString(1));
-                usuario.setParentesco(rs.getString(2));
-                usuario.setIdAfiliado(rs.getString(3));
-                usuario.setEstado(rs.getString(4));
-                usuario.setEstado_multa(rs.getString(5));
-                usuario.setCategoria(rs.getString(6));
-                usuario.setTipo_id(rs.getString(8));
-                usuario.setContraseña(rs.getString(9));
-                usuario.setEmail(rs.getString(10));
-                usuario.setTelefono_fijo(rs.getString(11));
-                usuario.setTelefono_cel(rs.getString(12));
-                usuario.setSexo(rs.getString(13));
-                usuario.setNombre(rs.getString(14));
-                usuario.setFecha(rs.getString(15));
-
+            while(rs.next()) {
+                    usuario.setIdentificacion(rs.getString(1));
+                    usuario.setTipo_id(rs.getString(2));
+                    usuario.setContraseña(rs.getString(3));
+                    usuario.setEmail(rs.getString(4));
+                    usuario.setTelefono_fijo(rs.getString(5));
+                    usuario.setTelefono_cel(rs.getString(6));
+                    usuario.setSexo(rs.getString(7));
+                    usuario.setNombre(rs.getString(8));
+                    usuario.setFecha(rs.getString(9));
             }
+            existe = true;
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No pudo logearse " + e.getMessage());
+        }
+    }
 
+    public void registrarUsuario() throws CaException {
+        try {
+
+            String strSQL = "INSERT INTO usuario( k_identificacion, i_tipo_document, contrasea, \"eMail\", q_tel_fijo, q_tel_cel, i_sexo, n_persona, f_nacimiento)\n"
+                    + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            prepStmt.setInt(1, Integer.parseInt(usuario.getIdentificacion()));
+            prepStmt.setString(2, usuario.getTipo_id());
+            prepStmt.setString(3, usuario.getContraseña());
+            prepStmt.setString(4, usuario.getEmail());
+            prepStmt.setString(5, usuario.getTelefono_fijo());
+            prepStmt.setString(6, usuario.getTelefono_cel());
+            prepStmt.setString(7, usuario.getSexo());
+            prepStmt.setString(8, usuario.getNombre());
+            prepStmt.setDate(9, Date.valueOf(usuario.getFecha()));
             prepStmt.executeUpdate();
             prepStmt.close();
             ServiceLocator.getInstance().commit();
-            existe = true;
         } catch (SQLException e) {
-            throw new CaException("CitasDAO", "No pudo crear el municipio" + e.getMessage());
-
+            throw new CaException("CitasDAO", "No pudo crear el Usuario" + e.getMessage());
         } finally {
             ServiceLocator.getInstance().liberarConexion();
         }
+    }
+
+    public void registrarPaciente() throws CaException {
+        try {
+
+            String strSQL = "INSERT INTO afiliado(k_identificacion, parentezco, k_identificacion_afiliado, i_estado, i_estado_multa, k_id_categoria)\n"
+                    + "    VALUES (?, ?, ?, ?, ?, ?);";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            prepStmt.setInt(1, Integer.parseInt(usuario.getIdentificacion()));
+            prepStmt.setString(2, usuario.getTipo_id());
+            prepStmt.setString(3, usuario.getContraseña());
+            prepStmt.setString(4, usuario.getEmail());
+            prepStmt.setString(5, usuario.getTelefono_fijo());
+            prepStmt.setString(6, usuario.getTelefono_cel());
+            prepStmt.setString(7, usuario.getSexo());
+            prepStmt.setString(8, usuario.getNombre());
+            prepStmt.setDate(9, Date.valueOf(usuario.getFecha()));
+            prepStmt.executeUpdate();
+            prepStmt.close();
+            ServiceLocator.getInstance().commit();
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No pudo crear el Usuario" + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
+        }
+    }
+    
+    public void traerCategoria(){
+        
+    }
+
+    public boolean isExiste() {
         return existe;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     public Agenda getAgenda() {
@@ -132,7 +198,7 @@ public class CitasDAO {
         return usuario;
     }
 
-    public void setUsuario(Paciente usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 

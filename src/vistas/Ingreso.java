@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -27,17 +28,16 @@ public class Ingreso extends JFrame implements ActionListener {
     JLabel identificacion = new JLabel("Identificación:");
     JLabel password = new JLabel("Contraseña:");
     JLabel pregunta = new JLabel("¿No tiene cuenta?");
-    JTextField inIdentificacion = new JTextField("usuario");
-    JTextField inPassword = new JTextField("contraseña");
+    JTextField inIdentificacion = new JTextField("");
+    JTextField inPassword = new JTextField("");
     JButton validar = new JButton("Ingresar");
     JButton registro = new JButton("Registrese");
     EscogerCita ventana2 = new EscogerCita();
 
     public AsignacionCita AC;
-    
 
     Ingreso() {
-        AC = new AsignacionCita();
+        AC = AsignacionCita.getInstance();
         setResizable(false);
         this.getContentPane().setBackground(Color.WHITE);
         setLayout(null);
@@ -88,7 +88,7 @@ public class Ingreso extends JFrame implements ActionListener {
 
         if (e.getSource() == validar) {
             try {
-                if (AC.validarpaciente(inIdentificacion.getText(), inPassword.getText())) {
+                if (AC.validarUsuario(inIdentificacion.getText(), inPassword.getText())) {
                     this.dispose();
                     Opciones O = new Opciones();
                     O.mostrar();

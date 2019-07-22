@@ -5,11 +5,16 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import negocio.AsignacionCita;
+import negocio.Usuario;
+import util.CaException;
 
 /**
  *
@@ -50,8 +55,11 @@ public class Registro extends JFrame implements ActionListener{
     
     JButton boton = new JButton("Terminar Registro");
     
+    public AsignacionCita AC;
+    
     public Registro(){
         
+        AC=AsignacionCita.getInstance();
         setResizable(false);
         this.getContentPane().setBackground(Color.WHITE);
         setLayout(null);
@@ -150,11 +158,29 @@ public class Registro extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         
         if(e.getSource()==boton){
-        
-            this.dispose();
             
-            Ingreso i = new Ingreso();
-            i.mostrar();
+            try {
+                this.dispose();
+                Usuario user = AC.getCDAO().getUsuario();
+                user.setIdentificacion(tId.getText());
+                if(documentos.getSelectedItem().toString()=="Cedula De ciudadania"){
+                    user.setTipo_id("CC");
+                }else{
+                    user.setTipo_id("TI");
+                }
+                user.setNombre(tNombre.getText()+" "+tApellido.getText());
+                user.setFecha(año.getText()+"-"+mes.getText()+"-"+dia.getText());
+                user.setSexo(String.valueOf(sexos.getSelectedItem()));
+                user.setTelefono_fijo(tTelF.getText());
+                user.setTelefono_cel(tTelM.getText());
+                user.setEmail(tEmail.getText());
+                user.setContraseña(tPass.getText());
+                AC.registrarUsuario();
+                Ingreso i = new Ingreso();
+                i.mostrar();
+            } catch (CaException ex) {
+                Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
         

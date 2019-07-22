@@ -50,6 +50,8 @@ public class Ingreso extends JFrame implements ActionListener {
 
         c.add(aviso);
         aviso.setBounds(195, 220, 200, 20);
+        aviso.setForeground(Color.red);
+        aviso.setVisible(false);
 
         c.add(identificacion);
         identificacion.setBounds(200, 70, 100, 20);
@@ -85,19 +87,37 @@ public class Ingreso extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        aviso.setVisible(false);
         if (e.getSource() == validar) {
             try {
-                if (AC.validarUsuario(inIdentificacion.getText(), inPassword.getText())) {
-                    this.dispose();
-                    Opciones O = new Opciones();
-                    O.mostrar();
-                } else {
 
-                    aviso.setForeground(Color.red);
-                    aviso.setText("Datos invalidos");
-
+                if (!inIdentificacion.getText().isEmpty() && !inPassword.getText().isEmpty()) {
+                    
+                    if (AC.validarUsuario(inIdentificacion.getText(), inPassword.getText())) {
+                        this.dispose();
+                        Opciones O = new Opciones();
+                        O.mostrar();
+                    } else {
+                        aviso.setVisible(true);
+                        aviso.setText("Usuario no existe");
+                    }
+                }else{
+                    if (inIdentificacion.getText().isEmpty() && inPassword.getText().isEmpty()) {
+                        aviso.setVisible(true);
+                        aviso.setText("Datos incorrectos");
+                    }else{
+                        if (inIdentificacion.getText().isEmpty()){
+                            aviso.setVisible(true);
+                            aviso.setText("id incorrecto");
+                        }
+                        if (inPassword.getText().isEmpty()){
+                            aviso.setVisible(true);
+                            aviso.setText("Password incorrecto");
+                        }
+                        
+                    }
                 }
+
             } catch (CaException ex) {
                 Logger.getLogger(Ingreso.class.getName()).log(Level.SEVERE, null, ex);
             }

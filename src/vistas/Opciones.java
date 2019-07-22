@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import negocio.AsignacionCita;
 
 public class Opciones extends JFrame implements ActionListener{
 
@@ -15,15 +16,21 @@ public class Opciones extends JFrame implements ActionListener{
     String apellido;
     
     JLabel jlNombre = new JLabel("Nombre:");
-    JLabel jlApellido = new JLabel("Apellido:");
+    
     
     JButton consultar = new JButton("Consultar citas agendadas");
     JButton agendar = new JButton("Agendar una cita");
     JButton cancelar = new JButton("Cancelar una cita");
     JButton cerrar = new JButton("Cerrar sesión");
     
-    public Opciones(){
+    public AsignacionCita AC;
     
+    public Opciones(){
+        AC=AsignacionCita.getInstance();
+        
+        jlNombre = new JLabel("Nombre: "+AC.getCDAO().getUsuario().getNombre());
+        
+        
         setResizable(false);
         this.getContentPane().setBackground(Color.WHITE);
         setLayout(null);
@@ -33,9 +40,6 @@ public class Opciones extends JFrame implements ActionListener{
         
         c.add(jlNombre);
         jlNombre.setBounds(30, 10, 200, 20);
-        
-        c.add(jlApellido);
-        jlApellido.setBounds(30, 40, 230, 20);
         
         c.add(consultar);
         consultar.setBounds(30, 80, 230, 20);

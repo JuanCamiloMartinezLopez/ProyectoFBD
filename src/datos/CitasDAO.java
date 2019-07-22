@@ -71,8 +71,9 @@ public class CitasDAO {
                     usuario.setSexo(rs.getString(7));
                     usuario.setNombre(rs.getString(8));
                     usuario.setFecha(rs.getString(9));
+                    existe = true;
             }
-            existe = true;
+            
         } catch (SQLException e) {
             throw new CaException("CitasDAO", "No pudo logearse " + e.getMessage());
         }

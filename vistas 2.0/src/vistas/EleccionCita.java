@@ -23,11 +23,13 @@ class EleccionCita extends JFrame implements ActionListener{
     JLabel a = new JLabel("Año:");
     JLabel sede = new JLabel("Sede:");
     JLabel consulta = new JLabel("Tipo Consulta:");
-    JLabel horario = new JLabel("Horario");
+    JLabel horario = new JLabel("Horario:");
+    JLabel especialidad = new JLabel("Especialidad:");
     
     JComboBox listaSedes = new JComboBox();
     JComboBox listaConsultas = new JComboBox();
     JComboBox listaHorario = new JComboBox();
+    JComboBox listaEsp = new JComboBox();
     
     JTextField dia = new JTextField();
     JTextField mes = new JTextField();
@@ -60,7 +62,7 @@ class EleccionCita extends JFrame implements ActionListener{
         c.add(sede);
         sede.setBounds(130, 20, 100, 20);
         c.add(listaSedes);
-        listaSedes.setBounds(240, 20, 100, 20);
+        listaSedes.setBounds(240, 20, 110, 20);
         listaSedes.addItem("Chapinero");
         listaSedes.addItem("Kennedy");
         listaSedes.addItem("Bosa");
@@ -69,7 +71,7 @@ class EleccionCita extends JFrame implements ActionListener{
         c.add(horario);
         horario.setBounds(130, 50, 100, 20);
         c.add(listaHorario);
-        listaHorario.setBounds(240, 50, 100, 20);
+        listaHorario.setBounds(240, 50, 110, 20);
         listaHorario.addItem("Mañana");
         listaHorario.addItem("Tarde");
         listaHorario.addItem("Noche");
@@ -77,20 +79,28 @@ class EleccionCita extends JFrame implements ActionListener{
         c.add(consulta);
         consulta.setBounds(130, 80, 100, 20);
         c.add(listaConsultas);
-        listaConsultas.setBounds(240, 80, 100, 20);
-        listaConsultas.addItem("General");
-        listaConsultas.addItem("Especialista");
+        listaConsultas.setBounds(240, 80, 110, 20);
         listaConsultas.addItem("Primera vez");
+        listaConsultas.addItem("Control");
+        listaConsultas.addItem("Lectura de examenes");
 
+        c.add(especialidad);
+        especialidad.setBounds(130, 110, 100, 20);
+        c.add(listaEsp);
+        listaEsp.setBounds(240, 110, 110, 20);
+        listaEsp.addItem("Odontologia");
+        listaEsp.addItem("Pediatria");
+        listaEsp.addItem("Medicina General");
+        
         c.add(confirmar);
-        confirmar.setBounds(130, 110, 100, 20);
+        confirmar.setBounds(20, 110, 100, 20);
         confirmar.addActionListener(this);
         
     }
     
     public void mostrar() {
         
-        setSize(370, 200);
+        setSize(380, 180);
         setVisible(true);
 
     }  
@@ -109,3 +119,4 @@ class EleccionCita extends JFrame implements ActionListener{
     }
     
 }
+

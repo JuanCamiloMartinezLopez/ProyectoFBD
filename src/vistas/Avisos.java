@@ -19,26 +19,24 @@ public class Avisos extends JFrame {
 
     private final JLabel img = new JLabel();
 
-    public Avisos(String mensaje) {
-        
+    public Avisos() {
+
         setResizable(false);
         this.getContentPane().setBackground(Color.WHITE);
         setLayout(null);
         Container c = getContentPane();
-
         img.setBounds(75, 0, 150, 50);
         img.setForeground(Color.BLACK);
-        img.setText(mensaje);
         img.setHorizontalAlignment(SwingConstants.CENTER);
-
         c.add(img);
+        setSize(300, 70);
+    }
 
+    public void setText(String mensaje) {
+        img.setText(mensaje);
     }
 
     public void mostrar() {
-
-        setSize(300, 70);
         setVisible(true);
-
     }
 }

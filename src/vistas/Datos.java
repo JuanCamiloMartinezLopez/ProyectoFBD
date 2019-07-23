@@ -9,17 +9,25 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import negocio.AsignacionCita;
+import negocio.Paciente;
+import negocio.Usuario;
 
 /**
  *
  * @author danbr
  */
 public class Datos extends JFrame implements ActionListener{
+    
+    AsignacionCita AC=AsignacionCita.getInstance();
+    
+    Usuario user;
+    Paciente afiliado;
 
     JLabel inicio = new JLabel("Informacion del usuario");
     JLabel identificacion = new JLabel("Numero de identificación:");
     JLabel tipoDoc = new JLabel("Tipo de documento:");
-    JLabel nombre = new JLabel("Nombre(s):");
+    JLabel nombre = new JLabel("Nombre:");
     JLabel apellido = new JLabel("Apellidos:");
     JLabel fechaN = new JLabel("Fecha de nacimiento:");
     JLabel telefonoFijo = new JLabel("Telefono fijo:");
@@ -47,6 +55,8 @@ public class Datos extends JFrame implements ActionListener{
     
     public Datos(){
         
+        user = AC.getCDAO().getUsuario();
+        afiliado=AC.getCDAO().getPaciente();
         setResizable(false);
         this.getContentPane().setBackground(Color.WHITE);
         setLayout(null);
@@ -60,66 +70,81 @@ public class Datos extends JFrame implements ActionListener{
         c.add(identificacion);
         identificacion.setBounds(50, 50, 200, 20);
         c.add(tId);
+        tId.setText(user.getIdentificacion());
         tId.setBounds(225, 50, 200, 20);
         
         c.add(tipoDoc);
         tipoDoc.setBounds(50, 90, 200, 20);
         c.add(tDoc);
+        tDoc.setText(user.getTipo_id());
         tDoc.setBounds(225, 90, 200, 20);
         
         c.add(nombre);
         nombre.setBounds(50, 130, 200, 20);
         c.add(tNombre);
+        tNombre.setText(user.getNombre());
         tNombre.setBounds(225, 130, 200, 20);
         
-        c.add(apellido);
+        /*c.add(apellido);
         apellido.setBounds(50, 170, 200, 20);
         c.add(tApellido);
-        tApellido.setBounds(225, 170, 200, 20);
+        tApellido.setBounds(225, 170, 200, 20);*/
         
         c.add(fechaN);
-        fechaN.setBounds(50, 210, 200, 20);
+        fechaN.setBounds(50, 170, 200, 20);
         c.add(tFn);
-        tFn.setBounds(225, 210, 200, 20);
+        tFn.setText(user.getFecha());
+        tFn.setBounds(225, 170, 200, 20);
         
         c.add(telefonoFijo);
-        telefonoFijo.setBounds(50, 250, 200, 20);
+        telefonoFijo.setBounds(50, 210, 200, 20);
         c.add(tTelF);
-        tTelF.setBounds(225, 250, 200, 20);
+        tTelF.setText(user.getTelefono_fijo());
+        tTelF.setBounds(225, 210, 200, 20);
         
         c.add(telefonoMovil);
-        telefonoMovil.setBounds(50, 290, 200, 20);
+        telefonoMovil.setBounds(50, 250, 200, 20);
         c.add(tTelM);
-        tTelM.setBounds(225, 290, 200, 20);
+        tTelM.setText(user.getTelefono_cel());
+        tTelM.setBounds(225, 250, 200, 20);
         
         c.add(email);
-        email.setBounds(50, 330, 200, 20);
+        email.setBounds(50, 290, 200, 20);
         c.add(tEmail);
-        tEmail.setBounds(225, 330, 200, 20);
+        tEmail.setText(user.getEmail());
+        tEmail.setBounds(225, 290, 200, 20);
         
         c.add(tipoU);
-        tipoU.setBounds(50, 370, 200, 20);
+        tipoU.setBounds(50, 330, 200, 20);
         c.add(tUsuario);
-        tUsuario.setBounds(225, 370, 200, 20);
+        if(afiliado.getParentesco()=="null"){
+            tUsuario.setText("Cotizante");
+        }else{
+            tUsuario.setText("Beneficiario");
+        }
+        tUsuario.setBounds(225, 330, 200, 20);
         
         c.add(cate);
-        cate.setBounds(50, 410, 200, 20);
+        cate.setBounds(50, 370, 200, 20);
         c.add(tCategoria);
-        tCategoria.setBounds(225, 410, 200, 20);
+        tCategoria.setText(afiliado.getCategoria());
+        tCategoria.setBounds(225, 370, 200, 20);
         
         c.add(estado);
-        estado.setBounds(50, 450, 200, 20);
+        estado.setBounds(50, 410, 200, 20);
         c.add(tEstado);
-        tEstado.setBounds(225, 450, 200, 20);
+        tEstado.setText(afiliado.getEstado());
+        tEstado.setBounds(225, 410, 200, 20);
         
         c.add(multa);
-        multa.setBounds(50, 490, 200, 20);
+        multa.setBounds(50, 450, 200, 20);
         c.add(tMulta);
-        tMulta.setBounds(225, 490, 200, 20);
+        tMulta.setText(afiliado.getEstado_multa());
+        tMulta.setBounds(225, 450, 200, 20);
         
         c.add(cerrar);
         cerrar.addActionListener(this);
-        cerrar.setBounds(120, 530, 200, 20);
+        cerrar.setBounds(120, 510, 200, 20);
         
         
     }

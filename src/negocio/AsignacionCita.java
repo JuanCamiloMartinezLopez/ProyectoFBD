@@ -41,6 +41,14 @@ public class AsignacionCita {
     public void registrarUsuario() throws CaException{
         CDAO.registrarUsuario();
     }
+    
+    public void registrarPaciente() throws CaException{
+        CDAO.registrarPaciente();
+    }
+    
+    public void consultarCitas() throws CaException{
+        CDAO.consultarCitas();
+    }
 
     public CitasDAO getCDAO() {
         return CDAO;

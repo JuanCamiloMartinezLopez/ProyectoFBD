@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import negocio.Agenda;
 import negocio.Categoria;
 import negocio.Cita;
+import negocio.Citas;
 import negocio.Consultorio;
 import negocio.Especialidad;
 import negocio.Medico;
@@ -31,6 +32,15 @@ public class CitasDAO {
     private Agenda agenda;
     private Categoria categoria;
     private Cita cita;
+
+    public Citas getCitas() {
+        return citas;
+    }
+
+    public void setCitas(Citas citas) {
+        this.citas = citas;
+    }
+    private Citas citas;
     private Consultorio consultorio;
     private Especialidad especialidad;
     private Paciente paciente;
@@ -153,6 +163,32 @@ public class CitasDAO {
         } finally {
             ServiceLocator.getInstance().liberarConexion();
         }
+    }
+    
+    public void consultarCitas() throws CaException{
+          try {
+            String strSQL = "SELECT f_cita,k_id_cita FROM cita WHERE k_identificacion=" + usuario.getIdentificacion() + "';";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            ResultSet rs = prepStmt.executeQuery();
+            System.out.println(rs.getRow());
+            if(rs.getRow()>0){
+                citas= new Citas(rs.getRow());
+            }else{
+                citas= new Citas(1);
+            }
+            int i =0;
+            while (rs.next()) {
+                citas.getCitas()[i].setFecha(rs.getString(1));
+                citas.getCitas()[i].setIdCita(rs.getString(2));
+            }
+
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No traer las citas " + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
+        }
+        
     }
 
     public void traerCategoria() throws CaException {

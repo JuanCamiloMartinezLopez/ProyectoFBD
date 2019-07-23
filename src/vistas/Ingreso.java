@@ -24,7 +24,6 @@ import util.CaException;
 public class Ingreso extends JFrame implements ActionListener {
 
     JLabel inicio = new JLabel("Bienvenido al sistema de gestión de citas médicas");
-    JLabel aviso = new JLabel("");
     JLabel identificacion = new JLabel("Identificación:");
     JLabel password = new JLabel("Contraseña:");
     JLabel pregunta = new JLabel("¿No tiene cuenta?");
@@ -36,8 +35,12 @@ public class Ingreso extends JFrame implements ActionListener {
 
     public AsignacionCita AC;
 
+    public Avisos aviso;
+
     Ingreso() {
+
         AC = AsignacionCita.getInstance();
+        aviso = new Avisos();
         setResizable(false);
         this.getContentPane().setBackground(Color.WHITE);
         setLayout(null);
@@ -47,11 +50,6 @@ public class Ingreso extends JFrame implements ActionListener {
 
         c.add(inicio);
         inicio.setBounds(100, 10, 500, 20);
-
-        c.add(aviso);
-        aviso.setBounds(195, 220, 200, 20);
-        aviso.setForeground(Color.red);
-        aviso.setVisible(false);
 
         c.add(identificacion);
         identificacion.setBounds(200, 70, 100, 20);
@@ -87,7 +85,7 @@ public class Ingreso extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        aviso.setVisible(false);
+
         if (e.getSource() == validar) {
             try {
 
@@ -100,26 +98,28 @@ public class Ingreso extends JFrame implements ActionListener {
                             Opciones O = new Opciones();
                             O.mostrar();
                         } else {
-                            aviso.setVisible(true);
+                            aviso.mostrar();
                             aviso.setText("Paciente no existe");
+
                         }
 
                     } else {
-                        aviso.setVisible(true);
+                        aviso.mostrar();
                         aviso.setText("Usuario no existe");
                     }
                 } else {
                     if (inIdentificacion.getText().isEmpty() && inPassword.getText().isEmpty()) {
                         aviso.setVisible(true);
-                        aviso.setText("Datos incorrectos");
+                        aviso.setText("Ingrese sus datos");
                     } else {
                         if (inIdentificacion.getText().isEmpty()) {
-                            aviso.setVisible(true);
-                            aviso.setText("id incorrecto");
+                            aviso.mostrar();
+                            aviso.setText("id vacio");
                         }
                         if (inPassword.getText().isEmpty()) {
-                            aviso.setVisible(true);
-                            aviso.setText("Password incorrecto");
+                            aviso.mostrar();
+                            aviso.setText("Password vacio");
+
                         }
 
                     }

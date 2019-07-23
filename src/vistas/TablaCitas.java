@@ -1,7 +1,5 @@
-
-
 package vistas;
-
+ 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -10,9 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,8 +20,9 @@ import javax.swing.JTable;
  */
 class TablaCitas extends JFrame implements ActionListener{
     
-    JTable tabla;
-    JButton agendar = new JButton("Agendar citas seleccionadas y volver");
+    JLabel datos = new JLabel("Ingrese Id de la cita deseada: ");
+    JButton agendar = new JButton("Agendar y volver");
+    JTextField idCita = new JTextField();
     JPanel jp = new JPanel();
     
     public TablaCitas(){
@@ -36,33 +37,36 @@ class TablaCitas extends JFrame implements ActionListener{
         jp.setPreferredSize(new Dimension(700, 700));
         String[] columnNames = {"Id cita","Médico",
             "Hora",
-            "Consultorio",
-            "Seleccionar"};
+            "Disponibilidad",
+            "Consultorio"};
         Object[][] data = {
             {"1","Kathy", "8 am",
-                 "204", false},
+                new Boolean(false), "204"},
             {"2","John", "7 am",
-                "311", false},
+                new Boolean(true), "311"},
             {"3","Sue", "10 am",
-                "209", false},
+                new Boolean(true), "209"},
             {"4","Jane", "8 am",
-                "405", false},
-            {"5","Joe", "11 am",
-                "610", false}
+                new Boolean(false), "405"},
+            {"5","Joe", "11am",
+                new Boolean(true), "610"}
         };
 
-        tabla = new JTable(data, columnNames);
-        JScrollPane jScrollPane = new JScrollPane(tabla);
-        tabla.getColumnModel().getColumn( 4 ).setCellEditor( new Celda_CheckBox() );
-        tabla.getColumnModel().getColumn( 4 ).setCellRenderer(new Render_CheckBox()); 
-        
+        JTable table = new JTable(data, columnNames);
+        JScrollPane jScrollPane = new JScrollPane(table);
         jp.add(jScrollPane, BorderLayout.CENTER);
         c.add(jp);
         jp.setBackground(Color.gray);
         jp.setBounds(10, 50, 600, 400);
 
+        c.add(datos);
+        datos.setBounds(100, 480, 200, 20);
+        
+        c.add(idCita);
+        idCita.setBounds(280, 480, 50, 20);
+        
         c.add(agendar);
-        agendar.setBounds(180, 480, 250, 30);
+        agendar.setBounds(360, 480, 150, 20);
         agendar.addActionListener(this);
     }
     
@@ -79,16 +83,8 @@ class TablaCitas extends JFrame implements ActionListener{
         
         if(e.getSource()==agendar){
             
-            for(int i=0 ; i<tabla.getColumnCount() ; i++){
-            
-                if("true".equals(tabla.getModel().getValueAt(i, 4).toString())){
-                
-                    System.out.println(i + ". " + tabla.getModel().getValueAt(i, 1));
-                }
-            }
-            
             this.dispose();
-            Opciones O = new Opciones();         
+            Opciones O = new Opciones();
             O.mostrar();
             
         }

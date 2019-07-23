@@ -318,18 +318,7 @@ public class CitasDAO {
 
     public void consultarAgenda(String especialidad, String idSede, String yyyy, String mm, String dd, String tCita, String horario) throws CaException {
         try {
-            String strSQL = "SELECT a.k_id_agenda,u.n_persona,a.h_inicio,c.k_id_consultirio"
-                    + "FROM agenda a, sede s,especialidad e, medico m, consultorio c,usuario u"
-                    + "WHERE m.k_identificacion=a.k_identificacion"
-                    + "AND e.k_codigo=m.k_codigo_especiali"
-                    + "AND s.k_id_sede=c.k_id_sede"
-                    + "AND c.k_id_consultirio=m.k_id_consultirio"
-                    + "AND m.k_identificacion=u.k_identificacion"
-                    + "AND e.n_nombre='" + especialidad + "' "
-                    + "AND s.n_nombre='" + idSede + "'"
-                    + "AND a.fecha ='" + yyyy + "-" + mm + "-" + dd + "'"
-                    + "AND a.k_id_tipo='" + tCita + "'"
-                    + "AND m.franja='" + horario + "';";
+            String strSQL = "SELECT a.k_id_agenda,u.n_persona,a.h_inicio,c.k_id_consultirio FROM agenda a, sede s,especialidad e, medico m, consultorio c,usuario u WHERE m.k_identificacion=a.k_identificacion AND e.k_codigo=m.k_codigo_especiali AND s.k_id_sede=c.k_id_sede AND c.k_id_consultirio=m.k_id_consultirio AND m.k_identificacion=u.k_identificacionAND e.n_nombre='" + especialidad + "' AND e.n_nombre='" + especialidad + "' AND s.n_nombre='" + idSede + "' AND a.fecha ='" + yyyy + "-" + mm + "-" + dd + "'AND a.k_id_tipo='" + tCita + "'AND m.franja='" + horario + "';";
             Connection conexion = ServiceLocator.getInstance().tomarConexion();
             PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
             ResultSet rs = prepStmt.executeQuery();

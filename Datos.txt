@@ -75,11 +75,11 @@
 							(1233512524, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'F', 'Carmen Lopez', '12-03-1970');
 
 			INSERT INTO afiliado(k_identificacion, parentezco, k_identificacion_afiliado, i_estado, i_estado_multa, k_id_categoria)
-					VALUES (1234567890, null, 123456789, 'Activo', 'Sin multa', 1),
-						   (2345678900, 'Hijo', 123456789, 'Activo', 'Sin multa', 1),
-						   (1233512505, null, 123456791, 'Inactivo', 'Sin multa', 2),
-						   (1234567920, null, 123456792, 'Activo', 'Multado', 2),
-						   (1234567930, 'Hijo', 123456792, 'Inactivo', 'Sin multa', 2);		
+					VALUES (1234567890, null, 1234567890, 'Activo', 'Sin multa', 1),
+						   (2345678900, 'Hijo', 1234567890, 'Activo', 'Sin multa', 1),
+						   (1233512505, null, 1233512505, 'Inactivo', 'Sin multa', 2),
+						   (1234567920, null, 1234567920, 'Activo', 'Multado', 2),
+						   (1234567930, 'Hijo', 1234567920, 'Inactivo', 'Sin multa', 2);		
 
 			INSERT INTO medico(i_tiene_agenda, k_identificacion, franja, k_codigo_especiali, k_id_consultirio)
 					VALUES  (TRUE, 1233512505, 'Mañana', 1,101),
@@ -269,5 +269,6 @@
 						VALUES ('Debe', 9000, 0001);			   			   	
 
 			INSERT INTO cita(f_cita, k_id_cita, i_estado, prescripcion, diagnostico, k_id_agenda, k_identificacion, k_id_multa)
-					VALUES ('25-07-2019', 1230, 'Cumplida',null,null,1, 1233512505, null),
-						   ('25-07-2019', 1231, 'Incumplida',null,null,2, 1233512505, 0001);	
+					VALUES ('25-07-2019', 1230, 'Cumplida',null,null,1, 1234567890, null),
+						   ('25-07-2019', 1231, 'Incumplida',null,null,2, 1234567890, 0001),
+						   ('25-07-2019', 1232, 'Pendiente',null,null,3, 1234567890, null);	

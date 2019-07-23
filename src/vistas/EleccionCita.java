@@ -94,7 +94,7 @@ class EleccionCita extends JFrame implements ActionListener {
         especialidad.setBounds(130, 110, 100, 20);
         c.add(listaEsp);
         listaEsp.setBounds(240, 110, 110, 20);
-        listaEsp.addItem("Oftamologia");
+        listaEsp.addItem("Oftalmologia");
         listaEsp.addItem("Odontologia");
         listaEsp.addItem("Pediatria");
         listaEsp.addItem("Medicina General");

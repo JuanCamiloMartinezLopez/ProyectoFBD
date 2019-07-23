@@ -63,7 +63,7 @@ public class CitasDAO {
         this.agendas = agendas;
     }
 
-    public CitasDAO(){
+    public CitasDAO() {
         this.agenda = new Agenda();
         this.categoria = new Categoria();
         this.cita = new Cita();
@@ -105,13 +105,12 @@ public class CitasDAO {
             ServiceLocator.getInstance().liberarConexion();
         }
     }
-    
 
     public void agregarCita(String id_agenda) throws CaException {
         try {
-            for(int i=0;i<agendas.getAgendas().length;i++){
-                if(id_agenda.equals(agendas.getAgendas()[i].getIdAgenda())){
-                    agenda=agendas.getAgendas()[i];
+            for (int i = 0; i < agendas.getAgendas().length; i++) {
+                if (id_agenda.equals(agendas.getAgendas()[i].getIdAgenda())) {
+                    agenda = agendas.getAgendas()[i];
                 }
             }
             String strSQL = "INSERT INTO cita(f_cita, k_id_cita, i_estado, prescripcion, diagnostico, k_id_agenda, k_identificacion, k_id_multa)\n"
@@ -125,8 +124,8 @@ public class CitasDAO {
             prepStmt.setNull(5, java.sql.Types.VARCHAR);
             prepStmt.setInt(6, Integer.valueOf(agenda.getIdAgenda()));
             prepStmt.setInt(7, Integer.valueOf(paciente.getIdentificacion()));
-            prepStmt.setNull(8,java.sql.Types.INTEGER );
-           
+            prepStmt.setNull(8, java.sql.Types.INTEGER);
+
             prepStmt.executeUpdate();
             //prepStmt.close();
             ServiceLocator.getInstance().commit();
@@ -238,15 +237,16 @@ public class CitasDAO {
             if (rs.getRow() > 0) {
                 citas = new Citas(rs.getRow());
                 tieneCitas = true;
-            }
-            int i = 0;
-            while (rs.next()) {
-                citas.getCitas()[i].setFecha(rs.getString(1));
-                citas.getCitas()[i].setIdCita(rs.getString(2));
-                citas.getCitas()[i].setHora(rs.getString(3));
-                citas.getCitas()[i].setTipo_consulta(rs.getString(4));
-                citas.getCitas()[i].setSede(rs.getString(5));
-                citas.getCitas()[i].setConsultrio(rs.getString(6));
+                int i = 0;
+                while (rs.next()) {
+                    citas.getCitas()[i].setFecha(rs.getString(1));
+                    citas.getCitas()[i].setIdCita(rs.getString(2));
+                    citas.getCitas()[i].setHora(rs.getString(3));
+                    citas.getCitas()[i].setTipo_consulta(rs.getString(4));
+                    citas.getCitas()[i].setSede(rs.getString(5));
+                    citas.getCitas()[i].setConsultrio(rs.getString(6));
+                    i++;
+                }
             }
 
         } catch (SQLException e) {
@@ -318,7 +318,18 @@ public class CitasDAO {
 
     public void consultarAgenda(String especialidad, String idSede, String yyyy, String mm, String dd, String tCita, String horario) throws CaException {
         try {
-            String strSQL = "SELECT a.k_id_agenda,u.n_persona,a.h_inicio,c.k_id_consultirio FROM agenda a, sede s,especialidad e, medico m, consultorio c,usuario u WHERE m.k_identificacion=a.k_identificacion AND e.k_codigo=m.k_codigo_especiali AND s.k_id_sede=c.k_id_sede AND c.k_id_consultirio=m.k_id_consultirio AND m.k_identificacion=u.k_identificacionAND e.n_nombre='" + especialidad + "' AND e.n_nombre='" + especialidad + "' AND s.n_nombre='" + idSede + "' AND a.fecha ='" + yyyy + "-" + mm + "-" + dd + "'AND a.k_id_tipo='" + tCita + "'AND m.franja='" + horario + "';";
+            String strSQL = "SELECT k_id_agenda, u.n_persona, ag.h_inicio, m.k_id_consultirio\n"
+                    + "FROM agenda ag, usuario u, medico m, sede s, consultorio c, especialidad e, tipo_cita tc\n"
+                    + "WHERE s.k_id_sede=c.k_id_sede\n"
+                    + "AND c.k_id_consultirio=m.k_id_consultirio\n"
+                    + "AND tc.k_id_tipo=ag.k_id_tipo\n"
+                    + "AND m.k_identificacion=ag.k_identificacion \n"
+                    + "AND u.k_identificacion=m.k_identificacion\n"
+                    + "AND e.n_nombre='" + especialidad + "'\n"
+                    + "AND s.n_nombre='" + idSede + "'\n"
+                    + "AND ag.fecha='" + dd + "-" + mm + "-" + yyyy + "'\n"
+                    + "AND tc.k_id_tipo='" + tCita + "'\n"
+                    + "AND  m.franja='" + horario + "';";
             Connection conexion = ServiceLocator.getInstance().tomarConexion();
             PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
             ResultSet rs = prepStmt.executeQuery();
@@ -326,14 +337,15 @@ public class CitasDAO {
             if (rs.getRow() > 0) {
                 agendas = new Agendas(rs.getRow());
                 tieneAgenda = true;
-            }
-            int i = 0;
-            while (rs.next()) {
-                agenda.setIdAgenda(rs.getString(1));
-                agenda.setMedico(rs.getString(2));
-                agenda.sethInicio(rs.getString(3));
-                agenda.setConsultorio(rs.getString(4));
+                int i = 0;
+                while (rs.next()) {
+                    agendas.getAgendas()[i].setIdAgenda(rs.getString(1));
+                    agendas.getAgendas()[i].setMedico(rs.getString(2));
+                    agendas.getAgendas()[i].sethInicio(rs.getString(3));
+                    agendas.getAgendas()[i].setConsultorio(rs.getString(4));
+                    i++;
 
+                }
             }
 
         } catch (SQLException e) {

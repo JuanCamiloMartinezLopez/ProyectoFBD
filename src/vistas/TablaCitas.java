@@ -26,7 +26,8 @@ import util.CaException;
 class TablaCitas extends JFrame implements ActionListener {
 
     JLabel datos = new JLabel("Ingrese Id de la cita deseada: ");
-    JButton agendar = new JButton("Agendar y volver");
+    JButton agendar = new JButton("Agendar");
+    JButton volver = new JButton("Volver");
     JTextField idCita = new JTextField();
     JPanel jp = new JPanel();
     JTable table;
@@ -83,8 +84,13 @@ class TablaCitas extends JFrame implements ActionListener {
         idCita.setBounds(280, 480, 50, 20);
 
         c.add(agendar);
-        agendar.setBounds(360, 480, 150, 20);
+        agendar.setBounds(360, 480, 100, 20);
         agendar.addActionListener(this);
+        
+        c.add(volver);
+        volver.setBounds(470, 480, 100, 20);
+        volver.addActionListener(this);
+        
     }
 
     public void mostrar() {
@@ -111,6 +117,10 @@ class TablaCitas extends JFrame implements ActionListener {
                 Logger.getLogger(TablaCitas.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+        }else if(e.getSource() == volver) {
+            this.dispose();
+            EleccionCita ec = new EleccionCita();
+            ec.mostrar();
         }
 
     }

@@ -118,6 +118,7 @@ class EleccionCita extends JFrame implements ActionListener {
         if (e.getSource() == confirmar) {
 
             try {
+                AC.Nagendas(String.valueOf(listaEsp.getSelectedItem()), String.valueOf(listaSedes.getSelectedItem()), año.getText(), mes.getText(), dia.getText(), String.valueOf(listaConsultas.getSelectedItem()), String.valueOf(listaHorario.getSelectedItem()));
                 AC.consultarAgenda(String.valueOf(listaEsp.getSelectedItem()), String.valueOf(listaSedes.getSelectedItem()), año.getText(), mes.getText(), dia.getText(), String.valueOf(listaConsultas.getSelectedItem()), String.valueOf(listaHorario.getSelectedItem()));
                 this.dispose();
                 TablaCitas tc = new TablaCitas();

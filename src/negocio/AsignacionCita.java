@@ -28,6 +28,10 @@ public class AsignacionCita {
         CDAO = new CitasDAO();
     }
     
+    public void Ncitas() throws CaException{
+        CDAO.NumeroCitas();
+    }
+    
     public void calcularMayor() throws CaException{
         CDAO.ConsultarId_cita();
     }
@@ -56,6 +60,10 @@ public class AsignacionCita {
     
     public void consultarCitas() throws CaException{
         CDAO.consultarCitas();
+    }
+    
+    public void Nagendas(String especialidad, String idSede, String yyyy, String mm, String dd, String tCita, String horario) throws CaException{
+        CDAO.NumeroAgendas(especialidad, idSede, yyyy, mm, dd, tCita, horario);
     }
     
     public void consultarAgenda(String especialidad, String idSede, String yyyy, String mm, String dd, String tCita, String horario) throws CaException{

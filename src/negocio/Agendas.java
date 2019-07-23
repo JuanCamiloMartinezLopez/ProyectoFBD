@@ -18,5 +18,8 @@ public class Agendas {
 
     public Agendas(int cAgendas) {
         agendas = new Agenda[cAgendas];
+        for(int i=0;i<cAgendas;i++){
+            agendas[i]= new Agenda();
+        }
     }
 }

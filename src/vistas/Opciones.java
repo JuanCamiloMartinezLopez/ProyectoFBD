@@ -80,6 +80,7 @@ public class Opciones extends JFrame implements ActionListener {
 
             this.dispose();
             try {
+                AC.Ncitas();
                 AC.consultarCitas();
             } catch (CaException ex) {
                 Logger.getLogger(Opciones.class.getName()).log(Level.SEVERE, null, ex);

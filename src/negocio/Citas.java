@@ -10,6 +10,9 @@ public class Citas {
 
     public Citas(int cCitas) {
         citas = new Cita[cCitas];
+        for(int i=0;i<cCitas;i++){
+            citas[i]= new Cita();
+        }
     }
 
     public Cita[] getCitas() {

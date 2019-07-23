@@ -43,20 +43,20 @@ public class ConfirmarCita extends JFrame implements ActionListener {
         jp.setPreferredSize(new Dimension(700, 700));
         String[] columnNames = {"Id cita", "Fecha",
             "Hora", "Tipo consulta", "Sede",
-            "Consultorio"};
+            "Consultorio","Medico"};
         if (AC.getCDAO().isTieneCitas()) {
             citas = AC.getCDAO().getCitas().getCitas();
             System.out.println("citas:");
             System.out.println(citas.length);
-            Object[][] data = new Object[citas.length][6];
+            Object[][] data = new Object[citas.length][7];
             for (int i = 0; i < citas.length; i++) {
                 data[i][0] = citas[i].getIdCita();
-                data[i][1] = citas[i].getMedico();
-                data[i][2] = citas[i].getFecha();
-                data[i][3] = citas[i].getHora();
-                data[i][4] = citas[i].getTipo_consulta();
-                data[i][5] = citas[i].getSede();
-                data[i][6] = citas[i].getConsultrio();
+                data[i][1] = citas[i].getFecha();
+                data[i][2] = citas[i].getHora();
+                data[i][3] = citas[i].getTipo_consulta();
+                data[i][4] = citas[i].getSede();
+                data[i][5] = citas[i].getConsultrio();
+                data[i][6] = citas[i].getMedico();
             }
 
             tabla = new JTable(data, columnNames);

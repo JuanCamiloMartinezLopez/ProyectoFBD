@@ -108,6 +108,7 @@ class TablaCitas extends JFrame implements ActionListener {
             try {
                 AC.calcularMayor();
                 AC.agendar(idCita.getText());
+                System.out.println(idCita.getText());
                 this.dispose();
                 aviso.mostrar();
                 aviso.setText("Cita agendada");

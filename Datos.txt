@@ -1,0 +1,273 @@
+			INSERT INTO categoria(
+					k_id_categoria, v_copago, v_multa)
+				VALUES (1, 3000, 6000),
+					   (2, 5000, 10000),
+					   (3, 7500, 15000);
+
+			INSERT INTO especialidad(k_codigo, n_nombre)
+				VALUES (1, 'Medicina General'),
+						(2, 'Pediatria'),
+						(3, 'Oftalmologia'),
+						(4, 'Odontologia');	
+					   
+			INSERT INTO sede(k_id_sede, n_nombre, telefono)
+				VALUES (1111, 'Chapinero', 4027896),
+					   (1112, 'Kennedy', 4027897),
+					   (1113, 'Bosa', 4027654),
+				       (1114, 'Suba', 4025698);
+					   
+			INSERT INTO tipo_cita(k_id_tipo, duracion)
+				VALUES  ('Prioritaria', 60),
+						('Primera vez', 30),
+						('Lectura de examenes', 30),
+						('Control', 30);		       
+
+			INSERT INTO consultorio(k_id_consultirio, i_tipo, descrip_equipo, k_id_sede)
+					VALUES  (101, 'Medicina general', 'Equipo basico', 1111),
+							(102, 'Pediatria', 'Equipo Pediatrico', 1111),
+							(103, 'Oftalmologia', 'Equipo Oftanmologia', 1111),
+							(104, 'Odontologia', 'Equipo Odontologia', 1111),
+							(201, 'Medicina general', 'Equipo basico', 1112),
+							(202, 'Pediatria', 'Equipo Pediatrico', 1112),
+							(203, 'Oftalmologia', 'Equipo Oftanmologia', 1112),
+							(204, 'Odontologia', 'Equipo Odontologia', 1112),
+							(301, 'Medicina general', 'Equipo Pediatrico', 1113),
+							(302, 'Pediatria', 'Equipo basico', 1113),
+							(303, 'Oftalmologia', 'Equipo Oftanmologia', 1113),
+						    (304, 'Odontologia', 'Equipo Odontologia', 1113),
+						   	(401, 'Medicina general', 'Equipo basico', 1114),
+							(402, 'Pediatria', 'Equipo Pediatrico', 1114),
+							(403, 'Oftalmologia', 'Equipo Oftanmologia', 1114),
+						    (404, 'Odontologia', 'Equipo Odontologia', 1114);			   
+						   
+
+
+			INSERT INTO usuario(k_identificacion, i_tipo_document, contrasea, "eMail", q_tel_fijo,q_tel_cel, i_sexo, n_persona, f_nacimiento)
+							
+							/* Afiliados */
+					VALUES  (1234567890, 'CC', 1234, 'j@n.com', 1234567, 3145678765, 'M', 'Alejandro Rios', '30-12-1999'),						
+							(2345678900, 'TI', 1234, 'm@n.com', 1234567, 3208765498, 'M', 'Max Rios', '24-11-2012'),											
+							(1234567920, 'CC', 1234, 'john@n.com', 9872592, 3188964589, 'M', 'John Parra', '26-12-1985'),
+							(1234567930, 'TI', 1234, 'cami@n.com', 9872592, 3178964567, 'M', 'Camilo Parra', '22-12-2005'),
+							
+							/* Medicos */
+							(1233512505, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'F', 'Lorena Flor', '12-03-1981'),						
+							(1233512506, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'M', 'Luis Fer', '12-03-1970'),
+							(1233512507, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'F', 'Patricia Roa', '12-03-1981'),						
+							(1233512508, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'M', 'Luis Parra', '12-03-1970'),
+							(1233512509, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'F', 'Luisa Diaz', '12-03-1981'),						
+							(1233512510, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'F', 'Daniela Suarez', '12-03-1970'),
+							(1233512511, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'M', 'Roberto Ruiz', '12-03-1981'),						
+							(1233512512, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'M', 'Sebastian Yatra', '12-03-1970'),
+							
+							(1233512513, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'M', 'Maluma Roa', '12-03-1981'),						
+							(1233512514, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'M', 'Luis Yatra', '12-03-1970'),
+							(1233512515, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'F', 'Manuel Turizo', '12-03-1981'),						
+							(1233512516, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'M', 'Maluma Yatra', '12-03-1970'),
+							(1233512517, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'F', 'Nelly Garcia', '12-03-1981'),						
+							(1233512518, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'F', 'Estefania Gutierrez', '12-03-1970'),
+							(1233512519, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'F', 'Sofia Roa', '12-03-1981'),						
+							(1233512520, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'F', 'Nelly Yatra', '12-03-1970'),		 
+							
+							(1233512521, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'F', 'Zulma Portobelo', '12-03-1981'),						
+							(1233512522, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'F', 'Nelly Lopez', '12-03-1970'),
+							(1233512523, 'CC', 4321, 'l@n.com', 9873562, 3178964567, 'F', 'Yuritza Yuri', '12-03-1981'),						
+							(1233512524, 'CC', 4321, 'luis@n.com', 9883362, 3178942065, 'F', 'Carmen Lopez', '12-03-1970');
+
+			INSERT INTO afiliado(k_identificacion, parentezco, k_identificacion_afiliado, i_estado, i_estado_multa, k_id_categoria)
+					VALUES (1234567890, null, 123456789, 'Activo', 'Sin multa', 1),
+						   (2345678900, 'Hijo', 123456789, 'Activo', 'Sin multa', 1),
+						   (1233512505, null, 123456791, 'Inactivo', 'Sin multa', 2),
+						   (1234567920, null, 123456792, 'Activo', 'Multado', 2),
+						   (1234567930, 'Hijo', 123456792, 'Inactivo', 'Sin multa', 2);		
+
+			INSERT INTO medico(i_tiene_agenda, k_identificacion, franja, k_codigo_especiali, k_id_consultirio)
+					VALUES  (TRUE, 1233512505, 'Mañana', 1,101),
+							(TRUE, 1233512506, 'Tarde', 1,101),
+							(TRUE, 1233512507, 'Mañana', 2,102),
+							(TRUE, 1233512508, 'Tarde', 2,102),
+							(TRUE, 1233512509, 'Mañana', 3,103),
+							(TRUE, 1233512510, 'Tarde', 3,103),
+							(TRUE, 1233512511, 'Mañana', 4,104),
+							(TRUE, 1233512512, 'Tarde', 4,104),
+							
+							
+							(TRUE, 1233512521, 'Mañana', 1,201),
+							(TRUE, 1233512523, 'Tarde', 1,201),
+							
+							
+							(TRUE, 1233512513, 'Mañana', 1,301),
+							(TRUE, 1233512514, 'Tarde', 1,301),
+							(TRUE, 1233512515, 'Mañana', 2,302),
+							(TRUE, 1233512516, 'Tarde', 2,302),
+							(TRUE, 1233512517, 'Mañana', 3,303),
+							(TRUE, 1233512518, 'Tarde', 3,303),
+							(TRUE, 1233512519, 'Mañana', 4,304),
+							(TRUE, 1233512520, 'Tarde', 4,304),
+							
+							
+							(TRUE, 1233512522, 'Mañana', 1,401),
+							(TRUE, 1233512524, 'Tarde', 1,401);
+						   
+			INSERT INTO agenda(k_id_agenda, i_estado, fecha, h_inicio, h_fin, k_identificacion, k_id_tipo)
+				VALUES (1,'Agendada', '25-07-2019', '06:00', '07:00', 1233512505,'Prioritaria'),
+					   (2,'Agendada', '25-07-2019', '07:00', '07:30', 1233512505,'Primera vez'),
+					   (3,'Disponible', '25-07-2019', '07:30', '08:00', 1233512505,'Control'),
+					   (4,'Disponible', '25-07-2019', '08:00', '08:30', 1233512505,'Lectura de examenes'),
+					   (5,'Disponible', '25-07-2019', '08:30', '09:30', 1233512505,'Prioritaria'),
+					   (6,'Disponible', '25-07-2019', '09:30', '10:00', 1233512505,'Primera vez'),
+					   (7,'Disponible', '25-07-2019', '10:00', '10:30', 1233512505,'Control'),
+					   (8,'Disponible', '25-07-2019', '10:30', '11:00', 1233512505,'Lectura de examenes'),
+					   (9,'Disponible', '25-07-2019', '11:00', '12:00', 1233512505,'Prioritaria'),
+					   
+					   (10,'Disponible', '25-07-2019', '06:00', '07:00', 1233512507,'Prioritaria'),
+					   (11,'Disponible', '25-07-2019', '07:00', '07:30', 1233512507,'Primera vez'),
+					   (12,'Disponible', '25-07-2019', '07:30', '08:00', 1233512507,'Control'),
+					   (13,'Disponible', '25-07-2019', '08:00', '08:30', 1233512507,'Lectura de examenes'),
+					   (14,'Disponible', '25-07-2019', '08:30', '09:30', 1233512507,'Prioritaria'),
+					   (15,'Disponible', '25-07-2019', '09:30', '10:00', 1233512507,'Primera vez'),
+					   (16,'Disponible', '25-07-2019', '10:00', '10:30', 1233512507,'Control'),
+					   (17,'Disponible', '25-07-2019', '10:30', '11:00', 1233512507,'Lectura de examenes'),
+					   (18,'Disponible', '25-07-2019', '11:00', '12:00', 1233512507,'Prioritaria'),
+					   
+					   (19,'Disponible', '25-07-2019', '06:00', '07:00', 1233512509,'Prioritaria'),
+					   (20,'Disponible', '25-07-2019', '07:00', '07:30', 1233512509,'Primera vez'),
+					   (21,'Disponible', '25-07-2019', '07:30', '08:00', 1233512509,'Control'),
+					   (22,'Disponible', '25-07-2019', '08:00', '08:30', 1233512509,'Lectura de examenes'),
+					   (23,'Disponible', '25-07-2019', '08:30', '09:30', 1233512509,'Prioritaria'),
+					   (24,'Disponible', '25-07-2019', '09:30', '10:00', 1233512509,'Primera vez'),
+					   (25,'Disponible', '25-07-2019', '10:00', '10:30', 1233512509,'Control'),
+					   (26,'Disponible', '25-07-2019', '10:30', '11:00', 1233512509,'Lectura de examenes'),
+					   (27,'Disponible', '25-07-2019', '11:00', '12:00', 1233512509,'Prioritaria'),
+					   
+					   (28,'Disponible', '25-07-2019', '06:00', '07:00', 1233512511,'Prioritaria'),
+					   (29,'Disponible', '25-07-2019', '07:00', '07:30', 1233512511,'Primera vez'),
+					   (30,'Disponible', '25-07-2019', '07:30', '08:00', 1233512511,'Control'),
+					   (31,'Disponible', '25-07-2019', '08:00', '08:30', 1233512511,'Lectura de examenes'),
+					   (32,'Disponible', '25-07-2019', '08:30', '09:30', 1233512511,'Prioritaria'),
+					   (33,'Disponible', '25-07-2019', '09:30', '10:00', 1233512511,'Primera vez'),
+					   (34,'Disponible', '25-07-2019', '10:00', '10:30', 1233512511,'Control'),
+					   (35,'Disponible', '25-07-2019', '10:30', '11:00', 1233512511,'Lectura de examenes'),
+					   (36,'Disponible', '25-07-2019', '11:00', '12:00', 1233512511,'Prioritaria'),
+					   
+					   (37,'Disponible', '25-07-2019', '06:00', '07:00', 1233512506,'Prioritaria'),
+					   (38,'Disponible', '25-07-2019', '07:00', '07:30', 1233512506,'Primera vez'),
+					   (39,'Disponible', '25-07-2019', '07:30', '08:00', 1233512506,'Control'),
+					   (40,'Disponible', '25-07-2019', '08:00', '08:30', 1233512506,'Lectura de examenes'),
+					   (41,'Disponible', '25-07-2019', '08:30', '09:30', 1233512506,'Prioritaria'),
+					   (42,'Disponible', '25-07-2019', '09:30', '10:00', 1233512506,'Primera vez'),
+					   (43,'Disponible', '25-07-2019', '10:00', '10:30', 1233512506,'Control'),
+					   (44,'Disponible', '25-07-2019', '10:30', '11:00', 1233512506,'Lectura de examenes'),
+					   (45,'Disponible', '25-07-2019', '11:00', '12:00', 1233512506,'Prioritaria'),
+					   
+					   (46,'Disponible', '25-07-2019', '06:00', '07:00', 1233512508,'Prioritaria'),
+					   (47,'Disponible', '25-07-2019', '07:00', '07:30', 1233512508,'Primera vez'),
+					   (48,'Disponible', '25-07-2019', '07:30', '08:00', 1233512508,'Control'),
+					   (49,'Disponible', '25-07-2019', '08:00', '08:30', 1233512508,'Lectura de examenes'),
+					   (50,'Disponible', '25-07-2019', '08:30', '09:30', 1233512508,'Prioritaria'),
+					   (51,'Disponible', '25-07-2019', '09:30', '10:00', 1233512508,'Primera vez'),
+					   (52,'Disponible', '25-07-2019', '10:00', '10:30', 1233512508,'Control'),
+					   (53,'Disponible', '25-07-2019', '10:30', '11:00', 1233512508,'Lectura de examenes'),
+					   (54,'Disponible', '25-07-2019', '11:00', '12:00', 1233512508,'Prioritaria'),
+					   
+					   (55,'Disponible', '25-07-2019', '06:00', '07:00', 1233512510,'Prioritaria'),
+					   (56,'Disponible', '25-07-2019', '07:00', '07:30', 1233512510,'Primera vez'),
+					   (57,'Disponible', '25-07-2019', '07:30', '08:00', 1233512510,'Control'),
+					   (58,'Disponible', '25-07-2019', '08:00', '08:30', 1233512510,'Lectura de examenes'),
+					   (59,'Disponible', '25-07-2019', '08:30', '09:30', 1233512510,'Prioritaria'),
+					   (60,'Disponible', '25-07-2019', '09:30', '10:00', 1233512510,'Primera vez'),
+					   (61,'Disponible', '25-07-2019', '10:00', '10:30', 1233512510,'Control'),
+					   (62,'Disponible', '25-07-2019', '10:30', '11:00', 1233512510,'Lectura de examenes'),
+					   (63,'Disponible', '25-07-2019', '11:00', '12:00', 1233512510,'Prioritaria'),
+					   
+					   (64,'Disponible', '25-07-2019', '06:00', '07:00', 1233512512,'Prioritaria'),
+					   (65,'Disponible', '25-07-2019', '07:00', '07:30', 1233512512,'Primera vez'),
+					   (66,'Disponible', '25-07-2019', '07:30', '08:00', 1233512512,'Control'),
+					   (67,'Disponible', '25-07-2019', '08:00', '08:30', 1233512512,'Lectura de examenes'),
+					   (68,'Disponible', '25-07-2019', '08:30', '09:30', 1233512512,'Prioritaria'),
+					   (69,'Disponible', '25-07-2019', '09:30', '10:00', 1233512512,'Primera vez'),
+					   (70,'Disponible', '25-07-2019', '10:00', '10:30', 1233512512,'Control'),
+					   (71,'Disponible', '25-07-2019', '10:30', '11:00', 1233512512,'Lectura de examenes'),
+					   (72,'Disponible', '25-07-2019', '11:00', '12:00', 1233512512,'Prioritaria'),
+					   
+					   (73,'Disponible', '25-07-2019', '06:00', '07:00', 1233512521,'Prioritaria'),
+					   (74,'Disponible', '25-07-2019', '07:00', '07:30', 1233512521,'Primera vez'),
+					   (75,'Disponible', '25-07-2019', '07:30', '08:00', 1233512521,'Control'),
+					   (76,'Disponible', '25-07-2019', '08:00', '08:30', 1233512521,'Lectura de examenes'),
+					   (77,'Disponible', '25-07-2019', '08:30', '09:30', 1233512521,'Prioritaria'),
+					   (78,'Disponible', '25-07-2019', '09:30', '10:00', 1233512521,'Primera vez'),
+					   (79,'Disponible', '25-07-2019', '10:00', '10:30', 1233512521,'Control'),
+					   (80,'Disponible', '25-07-2019', '10:30', '11:00', 1233512521,'Lectura de examenes'),
+					   (81,'Disponible', '25-07-2019', '11:00', '12:00', 1233512521,'Prioritaria'),
+					   
+					   (82,'Disponible', '25-07-2019', '06:00', '07:00', 1233512522,'Prioritaria'),
+					   (83,'Disponible', '25-07-2019', '07:00', '07:30', 1233512522,'Primera vez'),
+					   (84,'Disponible', '25-07-2019', '07:30', '08:00', 1233512522,'Control'),
+					   (85,'Disponible', '25-07-2019', '08:00', '08:30', 1233512522,'Lectura de examenes'),
+					   (86,'Disponible', '25-07-2019', '08:30', '09:30', 1233512522,'Prioritaria'),
+					   (87,'Disponible', '25-07-2019', '09:30', '10:00', 1233512522,'Primera vez'),
+					   (88,'Disponible', '25-07-2019', '10:00', '10:30', 1233512522,'Control'),
+					   (89,'Disponible', '25-07-2019', '10:30', '11:00', 1233512522,'Lectura de examenes'),
+					   (90,'Disponible', '25-07-2019', '11:00', '12:00', 1233512522,'Prioritaria'),
+					   
+					   /* Tarde */
+
+					   (154,'Disponible', '25-07-2019', '13:00', '14:00', 1233512506,'Prioritaria'),
+					   (155,'Disponible', '25-07-2019', '14:00', '14:30', 1233512506,'Primera vez'),
+					   (156,'Disponible', '25-07-2019', '14:30', '15:00', 1233512506,'Control'),
+					   (157,'Disponible', '25-07-2019', '15:00', '15:30', 1233512506,'Lectura de examenes'),
+					   
+					   (158,'Disponible', '25-07-2019', '13:00', '14:00', 1233512508,'Prioritaria'),
+					   (159,'Disponible', '25-07-2019', '14:00', '14:30', 1233512508,'Primera vez'),
+					   (160,'Disponible', '25-07-2019', '14:30', '15:00', 1233512508,'Control'),
+					   (161,'Disponible', '25-07-2019', '15:00', '15:30', 1233512508,'Lectura de examenes'),
+					   
+					   (162,'Disponible', '25-07-2019', '13:00', '14:00', 1233512510,'Prioritaria'),
+					   (163,'Disponible', '25-07-2019', '14:00', '14:30', 1233512510,'Primera vez'),
+					   (164,'Disponible', '25-07-2019', '14:30', '15:00', 1233512510,'Control'),
+					   (165,'Disponible', '25-07-2019', '15:00', '15:30', 1233512510,'Lectura de examenes'),
+					  
+					   (166,'Disponible', '25-07-2019', '13:00', '14:00', 1233512512,'Prioritaria'),
+					   (167,'Disponible', '25-07-2019', '14:00', '14:30', 1233512512,'Primera vez'),
+					   (168,'Disponible', '25-07-2019', '14:30', '15:00', 1233512512,'Control'),
+					   (169,'Disponible', '25-07-2019', '15:00', '15:30', 1233512512,'Lectura de examenes'),
+					   
+					   (170,'Disponible', '25-07-2019', '13:00', '14:00', 1233512505,'Prioritaria'),
+					   (171,'Disponible', '25-07-2019', '14:00', '14:30', 1233512505,'Primera vez'),
+					   (172,'Disponible', '25-07-2019', '14:30', '15:00', 1233512505,'Control'),
+					   (173,'Disponible', '25-07-2019', '15:00', '15:30', 1233512505,'Lectura de examenes'),
+					  
+					   (174,'Disponible', '25-07-2019', '13:00', '14:00', 1233512507,'Prioritaria'),
+					   (175,'Disponible', '25-07-2019', '14:00', '14:30', 1233512507,'Primera vez'),
+					   (176,'Disponible', '25-07-2019', '14:30', '15:00', 1233512507,'Control'),
+					   (177,'Disponible', '25-07-2019', '15:00', '15:30', 1233512507,'Lectura de examenes'),
+					   
+					   (178,'Disponible', '25-07-2019', '13:00', '14:00', 1233512509,'Prioritaria'),
+					   (179,'Disponible', '25-07-2019', '14:00', '14:30', 1233512509,'Primera vez'),
+					   (180,'Disponible', '25-07-2019', '14:30', '15:00', 1233512509,'Control'),
+					   (181,'Disponible', '25-07-2019', '15:00', '15:30', 1233512509,'Lectura de examenes'),
+					   
+					   (182,'Disponible', '25-07-2019', '13:00', '14:00', 1233512511,'Prioritaria'),
+					   (183,'Disponible', '25-07-2019', '14:00', '14:30', 1233512511,'Primera vez'),
+					   (184,'Disponible', '25-07-2019', '14:30', '15:00', 1233512511,'Control'),
+					   (185,'Disponible', '25-07-2019', '15:00', '15:30', 1233512511,'Lectura de examenes'),
+					   
+					   (186,'Disponible', '25-07-2019', '13:00', '14:00', 1233512523,'Prioritaria'),
+					   (187,'Disponible', '25-07-2019', '14:00', '14:30', 1233512523,'Primera vez'),
+					   (188,'Disponible', '25-07-2019', '14:30', '15:00', 1233512523,'Control'),
+					   (189,'Disponible', '25-07-2019', '15:00', '15:30', 1233512523,'Lectura de examenes'),
+					   
+					   (190,'Disponible', '25-07-2019', '13:00', '14:00', 1233512524,'Prioritaria'),
+					   (191,'Disponible', '25-07-2019', '14:00', '14:30', 1233512524,'Primera vez'),
+					   (192,'Disponible', '25-07-2019', '14:30', '15:00', 1233512524,'Control'),
+					   (193,'Disponible', '25-07-2019', '15:00', '15:30', 1233512524,'Lectura de examenes');
+					   
+					   
+					
+
+			INSERT INTO multa(i_estado, v_multa, k_id_multa)
+						VALUES ('Debe', 9000, 0001);			   			   	
+
+			INSERT INTO cita(f_cita, k_id_cita, i_estado, prescripcion, diagnostico, k_id_agenda, k_identificacion, k_id_multa)
+					VALUES ('25-07-2019', 1230, 'Cumplida',null,null,1, 1233512505, null),
+						   ('25-07-2019', 1231, 'Incumplida',null,null,2, 1233512505, 0001);	

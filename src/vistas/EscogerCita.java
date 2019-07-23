@@ -5,8 +5,7 @@
  */
 package vistas;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;

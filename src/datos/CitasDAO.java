@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import negocio.Agenda;
+import negocio.Agendas;
 import negocio.Categoria;
 import negocio.Cita;
 import negocio.Citas;
@@ -29,17 +30,12 @@ public class CitasDAO {
 
     private boolean existeUsuario = false;
     private boolean existePaciente = false;
+    private boolean tieneCitas = false;
+    private boolean tieneAgenda = false;
     private Agenda agenda;
+    private Agendas agendas;
     private Categoria categoria;
     private Cita cita;
-
-    public Citas getCitas() {
-        return citas;
-    }
-
-    public void setCitas(Citas citas) {
-        this.citas = citas;
-    }
     private Citas citas;
     private Consultorio consultorio;
     private Especialidad especialidad;
@@ -49,8 +45,25 @@ public class CitasDAO {
     private Multa multa;
     private Sede sede;
     private Tipo_cita tCita;
+    private int id_cita;
 
-    public CitasDAO() {
+    public Citas getCitas() {
+        return citas;
+    }
+
+    public void setCitas(Citas citas) {
+        this.citas = citas;
+    }
+
+    public Agendas getAgendas() {
+        return agendas;
+    }
+
+    public void setAgendas(Agendas agendas) {
+        this.agendas = agendas;
+    }
+
+    public CitasDAO(){
         this.agenda = new Agenda();
         this.categoria = new Categoria();
         this.cita = new Cita();
@@ -88,6 +101,56 @@ public class CitasDAO {
 
         } catch (SQLException e) {
             throw new CaException("CitasDAO", "No pudo logearse " + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
+        }
+    }
+    
+
+    public void agregarCita(String id_agenda) throws CaException {
+        try {
+            for(int i=0;i<agendas.getAgendas().length;i++){
+                if(id_agenda.equals(agendas.getAgendas()[i].getIdAgenda())){
+                    agenda=agendas.getAgendas()[i];
+                }
+            }
+            String strSQL = "INSERT INTO cita(f_cita, k_id_cita, i_estado, prescripcion, diagnostico, k_id_agenda, k_identificacion, k_id_multa)\n"
+                    + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            prepStmt.setDate(1, Date.valueOf(agenda.getFecha()));
+            prepStmt.setInt(2, id_cita);
+            prepStmt.setString(3, "Pendiente");
+            prepStmt.setNull(4, java.sql.Types.VARCHAR);
+            prepStmt.setNull(5, java.sql.Types.VARCHAR);
+            prepStmt.setInt(6, Integer.valueOf(agenda.getIdAgenda()));
+            prepStmt.setInt(7, Integer.valueOf(paciente.getIdentificacion()));
+            prepStmt.setNull(8,java.sql.Types.INTEGER );
+           
+            prepStmt.executeUpdate();
+            //prepStmt.close();
+            ServiceLocator.getInstance().commit();
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No pudo crear el Usuario" + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
+        }
+
+    }
+
+    public void ConsultarId_cita() throws CaException {
+
+        try {
+            String strSQL = "SELECT MAX (k_id_cita)FROM cita;";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()) {
+                id_cita = Integer.parseInt(rs.getString(1)) + 1;
+            }
+
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No se encontro mayor " + e.getMessage());
         } finally {
             ServiceLocator.getInstance().liberarConexion();
         }
@@ -164,31 +227,34 @@ public class CitasDAO {
             ServiceLocator.getInstance().liberarConexion();
         }
     }
-    
-    public void consultarCitas() throws CaException{
-          try {
-            String strSQL = "SELECT f_cita,k_id_cita FROM cita WHERE k_identificacion=" + usuario.getIdentificacion() + "';";
+
+    public void consultarCitas() throws CaException {
+        try {
+            String strSQL = "SELECT ct.f_cita,ct.k_id_cita,ag.h_inicio,ag.k_id_tipo,s.n_nombre,m.k_id_consultirio FROM sede s, consultorio c, medico m, agenda ag, afiliado aa, usuario u, tipo_cita t,cita ct WHERE s.k_id_sede=c.k_id_sede AND  c.k_id_consultirio=m.k_id_consultirio AND  t.k_id_tipo=ag.k_id_tipo AND m.k_identificacion=ag.k_identificacion AND ag.fecha=ct.f_cita AND u.k_identificacion=aa.k_identificacion AND ct.k_id_agenda=ag.k_id_agenda AND aa.k_identificacion=" + paciente.getIdentificacion() + " AND ct.i_estado='Pendiente';";
             Connection conexion = ServiceLocator.getInstance().tomarConexion();
             PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
             ResultSet rs = prepStmt.executeQuery();
             System.out.println(rs.getRow());
-            if(rs.getRow()>0){
-                citas= new Citas(rs.getRow());
-            }else{
-                citas= new Citas(1);
+            if (rs.getRow() > 0) {
+                citas = new Citas(rs.getRow());
+                tieneCitas = true;
             }
-            int i =0;
+            int i = 0;
             while (rs.next()) {
                 citas.getCitas()[i].setFecha(rs.getString(1));
                 citas.getCitas()[i].setIdCita(rs.getString(2));
+                citas.getCitas()[i].setHora(rs.getString(3));
+                citas.getCitas()[i].setTipo_consulta(rs.getString(4));
+                citas.getCitas()[i].setSede(rs.getString(5));
+                citas.getCitas()[i].setConsultrio(rs.getString(6));
             }
 
         } catch (SQLException e) {
-            throw new CaException("CitasDAO", "No traer las citas " + e.getMessage());
+            throw new CaException("CitasDAO", "no pudo traer las citas " + e.getMessage());
         } finally {
             ServiceLocator.getInstance().liberarConexion();
         }
-        
+
     }
 
     public void traerCategoria() throws CaException {
@@ -206,6 +272,22 @@ public class CitasDAO {
 
         } catch (SQLException e) {
             throw new CaException("CitasDAO", "No pudo logearse " + e.getMessage());
+        } finally {
+            ServiceLocator.getInstance().liberarConexion();
+        }
+    }
+
+    public void cancelarCita(String idCita) throws CaException {
+        try {
+            String strSQL = "DELETE FROM public.cita"
+                    + " WHERE k_id_cita =" + idCita + " AND k_identificacion=" + usuario.getIdentificacion() + ";";
+            Connection conexion = ServiceLocator.getInstance().tomarConexion();
+            PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+            prepStmt.executeUpdate();
+            //prepStmt.close();
+            ServiceLocator.getInstance().commit();
+        } catch (SQLException e) {
+            throw new CaException("CitasDAO", "No se pudo eliminar la cita " + idCita + " ." + e.getMessage());
         } finally {
             ServiceLocator.getInstance().liberarConexion();
         }
@@ -234,26 +316,35 @@ public class CitasDAO {
         }
     }
 
-    public void consultarAgenda(String especialidad,String idSede,String yyyy,String mm, String dd,String tCita) throws CaException {
+    public void consultarAgenda(String especialidad, String idSede, String yyyy, String mm, String dd, String tCita, String horario) throws CaException {
         try {
-            String strSQL = "SELECT * FROM agenda a, sede s,especialidad e, medico m, consultorio c"
+            String strSQL = "SELECT a.k_id_agenda,u.n_persona,a.h_inicio,c.k_id_consultirio"
+                    + "FROM agenda a, sede s,especialidad e, medico m, consultorio c,usuario u"
                     + "WHERE m.k_identificacion=a.k_identificacion"
                     + "AND e.k_codigo=m.k_codigo_especiali"
                     + "AND s.k_id_sede=c.k_id_sede"
-                    + "AND e.k_codigo="+especialidad+" "
-                    + "AND s.k_id_sede='"+idSede+"'"
-                    + "AND a.fecha ='"+yyyy+"-"+mm+"-"+dd+"';";
+                    + "AND c.k_id_consultirio=m.k_id_consultirio"
+                    + "AND m.k_identificacion=u.k_identificacion"
+                    + "AND e.n_nombre='" + especialidad + "' "
+                    + "AND s.n_nombre='" + idSede + "'"
+                    + "AND a.fecha ='" + yyyy + "-" + mm + "-" + dd + "'"
+                    + "AND a.k_id_tipo='" + tCita + "'"
+                    + "AND m.franja='" + horario + "';";
             Connection conexion = ServiceLocator.getInstance().tomarConexion();
             PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
             ResultSet rs = prepStmt.executeQuery();
+            System.out.println(rs.getRow());
+            if (rs.getRow() > 0) {
+                agendas = new Agendas(rs.getRow());
+                tieneAgenda = true;
+            }
+            int i = 0;
             while (rs.next()) {
-                paciente.setIdentificacion(rs.getString(1));
-                paciente.setParentesco(rs.getString(2));
-                paciente.setIdAfiliado(rs.getString(3));
-                paciente.setEstado(rs.getString(4));
-                paciente.setEstado_multa(rs.getString(5));
-                paciente.setCategoria(rs.getString(6));
-                existePaciente = true;
+                agenda.setIdAgenda(rs.getString(1));
+                agenda.setMedico(rs.getString(2));
+                agenda.sethInicio(rs.getString(3));
+                agenda.setConsultorio(rs.getString(4));
+
             }
 
         } catch (SQLException e) {
@@ -357,6 +448,22 @@ public class CitasDAO {
 
     public void settCita(Tipo_cita tCita) {
         this.tCita = tCita;
+    }
+
+    public boolean isTieneCitas() {
+        return tieneCitas;
+    }
+
+    public void setTieneCitas(boolean tieneCitas) {
+        this.tieneCitas = tieneCitas;
+    }
+
+    public boolean isTieneAgenda() {
+        return tieneAgenda;
+    }
+
+    public void setTieneAgenda(boolean tieneAgenda) {
+        this.tieneAgenda = tieneAgenda;
     }
 
 }

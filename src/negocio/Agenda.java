@@ -10,8 +10,33 @@ public class Agenda {
     private String fecha;
     private String hInicio;
     private String hFinal;
-    private Medico medico;
-    private Tipo_cita tCita;
+    private String consultorio;
+    private String medico;
+    private String tCita;
+
+    public String getConsultorio() {
+        return consultorio;
+    }
+
+    public void setConsultorio(String consultorio) {
+        this.consultorio = consultorio;
+    }
+
+    public String getMedico() {
+        return medico;
+    }
+
+    public void setMedico(String medico) {
+        this.medico = medico;
+    }
+
+    public String gettCita() {
+        return tCita;
+    }
+
+    public void settCita(String tCita) {
+        this.tCita = tCita;
+    }
 
     public Agenda(){
         
@@ -59,20 +84,5 @@ public class Agenda {
         this.hFinal = hFinal;
     }
 
-    public Medico getMedico() {
-        return medico;
-    }
-
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
-
-    public Tipo_cita gettCita() {
-        return tCita;
-    }
-
-    public void settCita(Tipo_cita tCita) {
-        this.tCita = tCita;
-    }
-    
+   
 }

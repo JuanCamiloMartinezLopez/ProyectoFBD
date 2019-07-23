@@ -28,6 +28,14 @@ public class AsignacionCita {
         CDAO = new CitasDAO();
     }
     
+    public void calcularMayor() throws CaException{
+        CDAO.ConsultarId_cita();
+    }
+    
+    public void agendar(String id) throws CaException{
+        CDAO.agregarCita(id);
+    }
+    
     public boolean validarUsuario(String id, String contraseña) throws CaException {
         CDAO.ValidarUsuario(id, contraseña);
         return CDAO.isExiste();
@@ -48,6 +56,14 @@ public class AsignacionCita {
     
     public void consultarCitas() throws CaException{
         CDAO.consultarCitas();
+    }
+    
+    public void consultarAgenda(String especialidad, String idSede, String yyyy, String mm, String dd, String tCita, String horario) throws CaException{
+        CDAO.consultarAgenda(especialidad, idSede, yyyy, mm, dd, tCita, horario);
+    }
+    
+    public void eliminarCita(String id) throws CaException{
+        CDAO.cancelarCita(id);
     }
 
     public CitasDAO getCDAO() {

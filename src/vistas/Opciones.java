@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import negocio.AsignacionCita;
+import util.CaException;
 
 public class Opciones extends JFrame implements ActionListener {
 
@@ -76,6 +79,11 @@ public class Opciones extends JFrame implements ActionListener {
         if (e.getSource() == consultar) {
 
             this.dispose();
+            try {
+                AC.consultarCitas();
+            } catch (CaException ex) {
+                Logger.getLogger(Opciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ConfirmarCita cc = new ConfirmarCita();
             cc.mostrar();
 
